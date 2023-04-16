@@ -11,23 +11,21 @@ import java.sql.Timestamp;
 public class ItemRequest {
 
     private int requestID;
-    private String requesterName;
-    private String location;
-    private String staffMember;
-    private String additionalNotes;
-    private Timestamp requestDate;
+    private RequestType requestType;
     private RequestStatus requestStatus;
-    private String itemType;
+    private String longname, staffUsername, itemType, requesterName, additionalNotes;
+    private Timestamp requestDate;
 
-    public ItemRequest(int requestID, String requesterName, String location, String staffMember, String additionalNotes, Timestamp requestDate, RequestStatus requestStatus, String itemType) {
-        this.requestID = requestID;
+    public ItemRequest(int requestID, RequestType requestType, RequestStatus requestStatus, String longname, String staffUsername, String itemType, String requesterName, String additionalNotes, Timestamp requestDate){
+        this.requestID=requestID;
+        this.requestType = requestType;
+        this.requestStatus = requestStatus;
+        this.longname = longname;
+        this.staffUsername = staffUsername;
+        this.itemType = itemType;
         this.requesterName = requesterName;
-        this.location = location;
-        this.staffMember = staffMember;
         this.additionalNotes = additionalNotes;
         this.requestDate = requestDate;
-        this.requestStatus = requestStatus;
-        this.itemType = itemType;
     }
 
     public void setRequestStatus(RequestStatus requestStatus) {
@@ -35,6 +33,6 @@ public class ItemRequest {
     }
 
     public void setStaffMember(String staffMember) {
-        this.staffMember = staffMember;
+        this.staffUsername = staffMember;
     }
 }

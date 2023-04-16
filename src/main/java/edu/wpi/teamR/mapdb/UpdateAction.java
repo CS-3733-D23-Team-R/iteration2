@@ -1,29 +1,39 @@
 package edu.wpi.teamR.mapdb;
 
 import lombok.Getter;
+
+import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 @Getter
 public class UpdateAction {
-    private ArrayList<Pair<MapData, EditType>> updates;
+    private final List<Pair<Method, Object[]>> updates;
+    private final List<Pair<MapData, EditType>> undos;
 
     UpdateAction() {
         updates = new ArrayList<>();
+        undos = new ArrayList<>();
     }
 
-    void addUpdate(MapData data, EditType editType) {
-        updates.add(new Pair<>(data, editType));
-    }
-
-    void addUpdates(Collection<? extends MapData> data, EditType editType) {
+    void addUpdate(Method update, Object[] updateArgs, List<MapData> data, EditType editType) {
+        updates.add(new Pair<>(update, updateArgs));
         for (MapData d : data) {
-            updates.add(new Pair<>(d, editType));
+            undos.add(new Pair<>(d, editType));
         }
     }
 
-    Collection<Pair<MapData, EditType>> getUpdates() {
+    void addUpdate(Method update, Object[] updateArgs, MapData data, EditType editType) {
+        updates.add(new Pair<>(update, updateArgs));
+        undos.add(new Pair<>(data, editType));
+    }
+
+    List<Pair<Method, Object[]>> getUpdates() {
         return updates;
+    }
+
+    List<Pair<MapData, EditType>> getUndoData() {
+        return undos;
     }
 }

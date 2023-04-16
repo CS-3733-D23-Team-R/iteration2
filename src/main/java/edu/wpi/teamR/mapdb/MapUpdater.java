@@ -2,6 +2,7 @@ package edu.wpi.teamR.mapdb;
 
 import edu.wpi.teamR.ItemNotFoundException;
 
+import java.lang.reflect.Method;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayDeque;
@@ -81,23 +82,41 @@ public class MapUpdater {
 
     public Node addNode(int xCoord, int yCoord, String floorNum, String building) {
         if (currentAction == null) currentAction = new UpdateAction();
+        Method m;
         Node n = new Node(-1, xCoord, yCoord, floorNum, building);
-        currentAction.addUpdate(n, EditType.ADDITION);
+        try {
+            m = mapdb.getClass().getMethod("addNode", int.class, int.class, String.class, String.class);
+            currentAction.addUpdate(m, new Object[]{xCoord, yCoord, floorNum, building}, n, EditType.ADDITION);
+        } catch (NoSuchMethodException e) {
+            throw new RuntimeException(e);
+        }
         return n;
     }
 
     public Node modifyCoords(int nodeID, int xCoord, int yCoord) throws SQLException {
         if (currentAction == null) currentAction = new UpdateAction();
+        Method m;
         Node n = mapdb.getNodeByID(nodeID);
         n.setXCoord(xCoord);
         n.setYCoord(yCoord);
-        currentAction.addUpdate(n, EditType.MODIFICATION);
+        try {
+            m = mapdb.getClass().getMethod("modifyCoords", int.class, int.class, int.class);
+            currentAction.addUpdate(m, new Object[]{nodeID, xCoord, yCoord}, n, EditType.MODIFICATION);
+        } catch (NoSuchMethodException e) {
+            throw new RuntimeException(e);
+        }
         return n;
     }
 
     public void deleteNode(int nodeID) throws SQLException {
         if (currentAction == null) currentAction = new UpdateAction();
-        currentAction.addUpdate(mapdb.getNodeByID(nodeID), EditType.DELETION);
+        Method m;
+        try {
+            m = mapdb.getClass().getMethod("deleteNode", int.class);
+            currentAction.addUpdate(m, new Object[]{nodeID}, mapdb.getNodeByID(nodeID), EditType.DELETION);
+        } catch (NoSuchMethodException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 
