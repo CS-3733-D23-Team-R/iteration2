@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="helpWindow" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamR.controllers.HelpController">
+   <children>
+      <TextArea layoutX="50.0" layoutY="82.0" prefHeight="467.0" prefWidth="700.0" text="Directions: Show the signage page with directions on how to get to other departments in the&#10;hospital from this hallway.&#10;&#10;Furniture Delivery Service Request: Request furniture to be delivered to your room at a set &#10;time.&#10;&#10;Meal Delivery Service Request: Request a meal to be delivered to your room at a set time.&#10;&#10;Hospital Map: View the graphical path from your current location to your destination on a &#10;map of the hospital.&#10;&#10;Log-In: Log in with your hospital account using the button located on the bottom-left corner &#10;of the homepage to access the features listed below.&#10;&#10;Service Request Updates: Update service requests through the tables under their respective &#10;buttons.&#10;&#10;Location Information Updates: Update location information through the Nodes, Moves, &#10;Location Names, and Edges tables to change navigation information. You can also do &#10;these updates by importing CSV files containing data.&#10;&#10;Exit: Close the application.">
+         <font>
+            <Font name="Times New Roman" size="18.0" />
+         </font>
+      </TextArea>
+      <Label layoutX="245.0" layoutY="14.0" text="About the Kiosk System">
+         <font>
+            <Font name="Times New Roman Bold" size="30.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

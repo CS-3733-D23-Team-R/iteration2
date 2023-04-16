@@ -1,0 +1,6 @@
+.background {
+    -fx-background-color: BLACK;
+    -fx-background-repeat: stretch;
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}

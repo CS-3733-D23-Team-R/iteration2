@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Nunito+Sans:wght@300;400;600;700&family=Roboto:wght@300;400;700&display=swap');
-
 .root {
     bwhblue: #012D5A;
     pressed: #BDBDBD;
@@ -8,18 +6,18 @@
 .button {
     -fx-background-color: bwhblue;
     -fx-text-fill: white;
-    -fx-font-family: 'Nunito Sans', 'regular';
+    -fx-font-family: 'Nunito Sans', 'bold';
     -fx-font-size: 18;
-    -fx-font-weight: 550;
+    -fx-font-weight: 500;
     border-radius: 4px;
 }
 
 .button:pressed {
     -fx-background-color: pressed;
     -fx-text-fill: white;
-    -fx-font-family: 'Nunito Sans', 'regular';
+    -fx-font-family: 'Nunito Sans', 'bold';
     -fx-font-size: 18;
-    -fx-font-weight: 550;
+    -fx-font-weight: 500;
     border-radius: 4px;
 }
 
@@ -85,14 +83,6 @@
     -fx-padding: 0 10 10 10;
 }
 
-.map-vbox {
-    -fx-background-color:  #FBF7F5;
-    -fx-border-color: BLACK;
-    -fx-border-insets: 0;
-    -fx-border-width: 3;
-    -fx-border-style: solid;
-}
-
 .sidebar-vbox:pressed{
     -fx-background-color: pressed;
     -fx-border-color: bwhblue;
@@ -131,8 +121,6 @@
     -fx-background-image: url("../images/flowerBackgroundCropped2.png");
 }
 
-
-
 .food_furniture-clear-button{
     -fx-background-color: transparent;
     -fx-text-fill: bwhblue;
@@ -164,6 +152,12 @@
     -fx-background-color: #012D5A;
 }
 
+.homeTitle{
+    -fx-font-family: 'Lato', 'bold';
+    -fx-font-weight: bold;
+    -fx-font-size: 48px;
+}
+
 .adminHome{
     -fx-background-color: #A3B9C9;
     -fx-background-repeat: stretch;
@@ -182,6 +176,38 @@
     -fx-text-fill: #012D5A;
     -fx-font-family: 'Nunito Sans', 'regular';
     -fx-font-size: 18;
-    -fx-font-weight: 550;
+    -fx-font-weight: 500;
     border-radius: 4px;
+}
+
+.time{
+    -fx-font-family: 'Quicksand', 'bold';
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-font-size: 30px;
+}
+
+.sr-sidebar-title{
+    -fx-font-family: 'Lato', 'bold';
+    -fx-font-weight: bold;
+    -fx-font-size: 30px;
+    -fx-text-fill: white;
+}
+
+.sr-sidebar-body{
+    -fx-font-family: 'Nunito Sans', 'regular';
+    -fx-font-weight: NORMAL;
+    -fx-font-size: 24;
+    -fx-text-fill: white;
+}
+
+.sr-sidebar-body:pressed{
+    -fx-text-fill: pressed
+}
+
+.sr-sidebar-subtitle{
+    -fx-font-family: 'Nunito Sans', 'regular';
+    -fx-font-weight: NORMAL;
+    -fx-font-size: 16;
+    -fx-text-fill: white;
 }

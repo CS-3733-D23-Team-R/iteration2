@@ -1,0 +1,107 @@
+.root {
+    bwhblue: #012D5A;
+    pressed: #BDBDBD;
+}
+
+.map-vbox {
+    -fx-background-color:  #FBF7F5;
+    -fx-border-color: BLACK;
+    -fx-border-insets: 0;
+    -fx-border-width: 3;
+    -fx-border-style: solid;
+}
+.title{
+    -fx-font-family: 'Lato', 'bold';
+    -fx-font-weight: bold;
+    -fx-font-size: 30px;
+}
+
+.button {
+    -fx-background-color: bwhblue;
+    -fx-text-fill: white;
+    -fx-font-family: 'Nunito Sans', 'bold';
+    -fx-font-size: 16;
+    -fx-font-weight: 700;
+    border-radius: 4px;
+}
+
+.button:pressed {
+    -fx-background-color: pressed;
+    -fx-text-fill: white;
+    -fx-font-family: 'Nunito Sans', 'bold';
+    -fx-font-size: 16;
+    -fx-font-weight: 700;
+    border-radius: 4px;
+}
+
+.body{
+    -fx-font-family: 'Nunito Sans', 'regular';
+    -fx-font-weight: NORMAL;
+    -fx-font-size: 18;
+}
+
+.check-box .box {
+    -fx-background-color: transparent;
+    -fx-border-width: 1;
+    -fx-border-color: BLACK;
+}
+
+.check-box .box .mark {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #000000;
+}
+
+.check-box:selected .box {
+    -fx-background-color: bwhblue;
+    -fx-border-width: 1;
+    -fx-border-color: BLACK;
+}
+
+.mfx-check-box {
+    -mfx-ripple-color: #012D5A;
+}
+
+.combo-box {
+    -fx-background-color: #ffffff; /* Background color */
+    -fx-border-color: bwhblue; /* Border color */
+    -fx-border-width: 0px; /* Border width */
+    -fx-font-size: 11px; /* Font size */
+    -fx-text-fill: #000000; /* Text color */
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 20, 0.2), 0, 2, 0, 0); /* Drop shadow effect */
+}
+
+/* Style for ComboBox in table view when hovered */
+.combo-box:hover {
+    -fx-background-color: #eeeeee; /* Background color when hovered */
+}
+
+/* Style for ComboBox in table view when pressed */
+.combo-box:pressed {
+    -fx-background-color: #e0e0e0; /* Background color when pressed */
+}
+
+/* Style for ComboBox arrow button */
+.combo-box .arrow-button {
+    -fx-background-color: transparent; /* Background color */
+    -fx-background-insets: 0; /* Background insets */
+}
+
+/* Style for ComboBox arrow button when hovered */
+.combo-box .arrow-button:hover {
+    -fx-background-color: #eeeeee; /* Background color when hovered */
+}
+
+/* Style for ComboBox arrow button when pressed */
+.combo-box .arrow-button:pressed {
+    -fx-background-color: #e0e0e0; /* Background color when pressed */
+}
+
+/* Style for ComboBox arrow button when focused */
+.combo-box .arrow-button:focused {
+    -fx-effect:dropshadow(three-pass-box, rgba(66, 165, 245, 0.4), 0, 0, 0, 0); /* Drop shadow effect when focused */
+}
+
+/* Style for ComboBox arrow icon */
+.combo-box .arrow-button .arrow {
+    -fx-fill: #000000; /* Icon color */
+}

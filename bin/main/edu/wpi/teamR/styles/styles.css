@@ -1,0 +1,185 @@
+.root {
+    bwhblue: #012D5A;
+    pressed: #BDBDBD;
+}
+
+.button {
+    -fx-background-color: bwhblue;
+    -fx-text-fill: white;
+    -fx-font-family: 'Nunito Sans', 'regular';
+    -fx-font-size: 18;
+    -fx-font-weight: 550;
+    border-radius: 4px;
+}
+
+.button:pressed {
+    -fx-background-color: pressed;
+    -fx-text-fill: white;
+    -fx-font-family: 'Nunito Sans', 'regular';
+    -fx-font-size: 18;
+    -fx-font-weight: 550;
+    border-radius: 4px;
+}
+
+.title{
+    -fx-font-family: 'Lato', 'bold';
+    -fx-font-weight: bold;
+    -fx-font-size: 36px;
+}
+
+.body{
+    -fx-font-family: 'Nunito Sans', 'regular';
+    -fx-font-weight: NORMAL;
+    -fx-font-size: 24;
+}
+
+.subtitle{
+    -fx-font-family: 'Roboto', 'light';
+    -fx-font-weight: 300;
+    -fx-font-size: 12px;
+}
+
+.sidebar{
+    -fx-font-family: 'Roboto';
+    -fx-font-size: 12px;
+}
+
+.combo-box .list-cell {
+    -fx-padding: 0.7em 0.7em 0.7em 0em;
+}
+
+.popup-overlay {
+    -fx-background-color: white;
+    -fx-border-color: -swatch-grey;
+    -fx-border-width: 0 0 2 0;
+    -fx-background-radius: 0;
+    -fx-border-radius: 0;
+}
+
+.title-bar {
+    -fx-padding: 10;
+}
+
+.title-bar .icon {
+    -fx-alignment: center-left;
+    -fx-effect: dropshadow(gaussian, rgb(0.0, 0.0, 0.0, 0.2), 0.0, 0.0, 0.0,
+    1.0);
+}
+
+.title-bar .title-label {
+    -fx-padding: 0 10 0 10;
+    -fx-alignment: center;
+    -fx-font-size: 36;
+    -fx-font-weight: bolder;
+}
+
+.content-area {
+    -fx-background-color: -dark;
+}
+
+.content-background {
+    -fx-background-color: white;
+    -fx-background-radius: 0.0 0.0 11.0 11.0;
+    -fx-padding: 0 10 10 10;
+}
+
+.map-vbox {
+    -fx-background-color:  #FBF7F5;
+    -fx-border-color: BLACK;
+    -fx-border-insets: 0;
+    -fx-border-width: 3;
+    -fx-border-style: solid;
+}
+
+.sidebar-vbox:pressed{
+    -fx-background-color: pressed;
+    -fx-border-color: bwhblue;
+}
+
+.loginBackground {
+    -fx-background-image: url("../images/brigham.JPEG");
+    -fx-background-repeat: stretch;
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+
+.loginRectangle {
+    -fx-background-color: #F3F3F3;
+    -fx-background-repeat: stretch;
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+
+.homeBackground {
+    -fx-background-color: #F3F3F3;
+    -fx-background-repeat: stretch;
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+
+.furniture-title{
+    -fx-background-image: url("../images/furnitureTopBarImage.png");
+}
+
+.meal-title{
+    -fx-background-image: url("../images/foodTopBarImage.png");
+}
+
+.flower-title{
+    -fx-background-image: url("../images/flowerBackgroundCropped2.png");
+}
+
+
+
+.food_furniture-clear-button{
+    -fx-background-color: transparent;
+    -fx-text-fill: bwhblue;
+    -fx-font-family: "Nunito Sans";
+    -fx-font-size: 12;
+    -fx-font-weight: 700;
+    -fx-border-radius: 4px;
+    -fx-border-color: pressed;
+}
+
+.food_furniture-cancel-button{
+    -fx-background-color: transparent;
+    -fx-text-fill: black;
+    -fx-font-family: "Nunito Sans";
+    -fx-font-size: 12;
+    -fx-font-weight: 700;
+    -fx-border-radius: 4px;
+    -fx-border-color: pressed;
+}
+
+.curvedHome{
+    -fx-background-image: url("../images/curvedHome.png");
+    -fx-background-repeat: stretch;
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+
+.homeBackground{
+    -fx-background-color: #012D5A;
+}
+
+.adminHome{
+    -fx-background-color: #A3B9C9;
+    -fx-background-repeat: stretch;
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+
+.whiteTitle{
+    -fx-font-family: 'Lato', 'bold';
+    -fx-font-weight: bold;
+    -fx-font-size: 36px;
+}
+
+.inverseButton {
+    -fx-background-color: white;
+    -fx-text-fill: #012D5A;
+    -fx-font-family: 'Nunito Sans', 'regular';
+    -fx-font-size: 18;
+    -fx-font-weight: 550;
+    border-radius: 4px;
+}

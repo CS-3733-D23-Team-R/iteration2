@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" styleClass="adminHome" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamR.controllers.AdminHomeController">
+   <center>
+      <AnchorPane BorderPane.alignment="CENTER">
+         <children>
+            <HBox prefHeight="100.0" prefWidth="1210.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="50.0">
+               <children>
+                  <VBox prefHeight="620.0" prefWidth="318.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="title" text="Welcome!" VBox.vgrow="ALWAYS" />
+                        <StackPane prefHeight="305.0" prefWidth="492.0" VBox.vgrow="ALWAYS">
+                           <children>
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fbf7f5" height="200.0" stroke="#012d5a" strokeType="INSIDE" strokeWidth="3.0" width="366.0" StackPane.alignment="CENTER_LEFT" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Quick Actions" translateX="10.0" translateY="-60.0" StackPane.alignment="CENTER_LEFT">
+                                 <font>
+                                    <Font name="Lato" size="24.0" />
+                                 </font></Text>
+                              <Text fx:id="signagePage" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Singage Page" translateX="10.0" StackPane.alignment="CENTER_LEFT" />
+                           </children>
+                        </StackPane>
+                        <ImageView fitHeight="262.0" fitWidth="417.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS">
+                           <image>
+                              <Image url="@../images/AprilCalender.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </VBox>
+                  <Pane prefHeight="620.0" prefWidth="498.0" styleClass="map-vbox" HBox.hgrow="ALWAYS" />
+               </children>
+            </HBox>
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>

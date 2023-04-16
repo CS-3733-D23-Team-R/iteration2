@@ -1,0 +1,77 @@
+/* Set Quicksand font as default font */
+.root {
+    -fx-font-family: 'Quicksand', sans-serif;
+}
+
+/* TableView style */
+.table-view {
+    -fx-background-color: white; /* Set background color */
+}
+
+/* TableHeaderRow style */
+.table-view .column-header-background {
+    -fx-background-color: transparent; /* Set column header background color */
+}
+
+.table-view .column-header-background .label {
+    -fx-text-fill: black; /* Set column header text color */
+}
+
+/* TableRow style */
+.table-row-cell {
+    -fx-background-color: white; /* Set row background color */
+    -fx-table-cell-border-color: black; /* Set row border color */
+}
+
+.table-row-cell:even {
+    -fx-background-color: white; /* Set alternate row background color */
+}
+
+/* TableCell style */
+.table-cell {
+    -fx-text-fill: black; /* Set cell text color */
+}
+
+/* TableSelectionCell style */
+.table-row-cell:selected {
+    -fx-background-color: grey; /* Set selected row background color */
+    -fx-text-fill: black; /* Set selected row text color */
+}
+
+/* TableFocusIndicator style */
+.table-view:focused .table-row-cell:filled:focused:selected {
+    -fx-background-color: white; /* Set focused selected row background color */
+    -fx-text-fill: title; /* Set focused selected row text color */
+}
+
+/* TableHeaderMenuButton style */
+.table-view .column-header .sort-order-indicator {
+    -fx-stroke: title; /* Set column header sort order indicator color */
+}
+
+/* TableScrollBar style */
+.table-view .scroll-bar:vertical {
+    -fx-background-color: black; /* Set vertical scroll bar background color */
+}
+
+.table-view .scroll-bar:vertical .thumb {
+    -fx-background-color: white; /* Set vertical scroll bar thumb color */
+}
+
+/* TableScrollBarIncrementButton style */
+.table-view .scroll-bar:vertical .increment-button,
+.table-view .scroll-bar:vertical .decrement-button {
+    -fx-background-color: black; /* Set vertical scroll bar increment/decrement button background color */
+}
+
+/* TableScrollBarIncrementArrow and TableScrollBarDecrementArrow style */
+.table-view .scroll-bar:vertical .increment-arrow,
+.table-view .scroll-bar:vertical .decrement-arrow {
+    -fx-background-color: white; /* Set vertical scroll bar increment/decrement arrow color */
+}
+
+/* TableScrollBarIncrementArrow:hover and TableScrollBarDecrementArrow:hover style */
+.table-view .scroll-bar:vertical .increment-arrow:hover,
+.table-view .scroll-bar:vertical .decrement-arrow:hover {
+    -fx-background-color: white; /* Set vertical scroll bar increment/decrement arrow hover color */
+}

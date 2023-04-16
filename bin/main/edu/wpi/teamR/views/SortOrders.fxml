@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane prefHeight="720.0" prefWidth="1280.0" stylesheets="@../styles/tables.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamR.controllers.SortOrdersController">
+   <top>
+          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Service Request Information" BorderPane.alignment="CENTER_LEFT">
+              <font>
+                  <Font name="Times New Roman" size="48.0" />
+              </font>
+         <BorderPane.margin>
+            <Insets left="100.0" top="30.0" />
+         </BorderPane.margin>
+          </Text>
+   </top>
+   <center>
+          <TableView fx:id="requestTable" editable="true" prefHeight="403.0" prefWidth="1092.0" BorderPane.alignment="CENTER">
+              <columns>
+                  <TableColumn fx:id="idColumn" maxWidth="80.0" minWidth="80.0" prefWidth="-1.0" text="ID Number" />
+                  <TableColumn fx:id="nameColumn" minWidth="20.0" prefWidth="115.33326721191406" text="Name" />
+                  <TableColumn fx:id="locationColumn" prefWidth="124.0" text="Location" />
+                  <TableColumn fx:id="requestTypeColumn" prefWidth="110.66671752929688" text="Request Type" />
+                  <TableColumn fx:id="notesColumn" prefWidth="148.66668701171875" text="Notes" />
+                  <TableColumn fx:id="staffMemberColumn" prefWidth="160.33331298828125" text="Staff Member" />
+                  <TableColumn fx:id="timeColumn" prefWidth="200.66656494140625" text="Time" />
+                  <TableColumn fx:id="statusColumn" prefWidth="121.3333740234375" text="Status" />
+            <TableColumn fx:id="deleteCol" maxWidth="60.0" minWidth="60.0" prefWidth="60.0" text="Delete" />
+              </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+         <BorderPane.margin>
+            <Insets bottom="50.0" left="100.0" right="100.0" top="20.0" />
+         </BorderPane.margin>
+          </TableView>
+   </center>
+</BorderPane>

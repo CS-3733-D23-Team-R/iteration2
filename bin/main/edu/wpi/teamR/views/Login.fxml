@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane prefHeight="720.0" prefWidth="1280.0" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamR.controllers.LoginController">
+   <center>
+      <AnchorPane styleClass="loginBackground" BorderPane.alignment="CENTER">
+         <children>
+            <VBox alignment="CENTER" prefHeight="520.0" prefWidth="1017.0" styleClass="loginRectangle" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="250.0" AnchorPane.topAnchor="100.0">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="101.0" prefWidth="780.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <ImageView fitHeight="54.0" fitWidth="86.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
+                           <image>
+                              <Image url="@../images/bwhappicon.png" />
+                           </image>
+                        </ImageView>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="title" text="Brigham and Women's Hospital" HBox.hgrow="ALWAYS" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <ImageView fitHeight="56.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
+                           <image>
+                              <Image url="@../images/user.png" />
+                           </image>
+                        </ImageView>
+                        <MFXTextField fx:id="usernameField" floatingText="Type Your Username" floatingTextGap="10.0" prefHeight="54.0" prefWidth="350.0" HBox.hgrow="ALWAYS" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="780.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <ImageView fitHeight="45.0" fitWidth="74.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
+                           <image>
+                              <Image url="@../images/lock.png" />
+                           </image>
+                        </ImageView>
+                        <MFXTextField fx:id="passwordField" floatingText="Type Your Password" floatingTextGap="10.0" prefHeight="54.0" prefWidth="350.0" HBox.hgrow="ALWAYS" />
+                     </children>
+                  </HBox>
+                  <MFXButton fx:id="loginButton" alignment="TOP_CENTER" prefHeight="25.0" prefWidth="180.0" text="Log In" translateY="-40.0" VBox.vgrow="ALWAYS" />
+               </children>
+            </VBox>
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>

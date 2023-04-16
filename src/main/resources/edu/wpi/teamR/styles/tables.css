@@ -1,0 +1,166 @@
+/* Set Quicksand font as default font */
+.root {
+    -fx-font-family: 'Nunito', 'regular';
+}
+
+.title{
+    -fx-font-family: 'Lato', 'bold';
+    -fx-font-weight: bold;
+    -fx-font-size: 36px;
+}
+
+/* TableView style */
+.table-view {
+    -fx-background-color: white; /* Set background color */
+}
+
+.table-view .column-header {
+    -fx-background-color: transparent;
+}
+
+/* TableHeaderRow style */
+.table-view .column-header-background {
+    -fx-background-color: transparent; /* Set column header background color */
+}
+
+.table-view .column-header-background .label {
+    -fx-text-fill: black; /* Set column header text color */
+    -fx-text-alignment: center;
+}
+
+.table-view .column-header .label {
+    -fx-alignment: CENTER_LEFT;
+}
+
+/* TableRow style */
+.table-row-cell {
+    -fx-background-color: white; /* Set row background color */
+    -fx-table-cell-border-color: transparent; /* Set row border color */
+    -fx-border-insets: 0px 0px 10px 0px; /* Add bottom spacing to row */
+}
+
+.table-row-cell:even {
+    -fx-background-color: white;
+}
+
+/* TableCell style */
+.table-cell {
+    -fx-text-fill: black; /* Set cell text color */
+}
+
+/* TableSelectionCell style */
+.table-cell:selected {
+    -fx-background-color: grey; /* Set selected cell background color */
+}
+
+/* TableFocusIndicator style */
+.table-view:focused .table-row-cell:filled:focused:selected {
+    -fx-background-color: white; /* Set focused selected row background color */
+    -fx-text-fill: black; /* Set focused selected row text color */
+}
+
+/* TableHeaderMenuButton style */
+.table-view .column-header .sort-order-indicator {
+    -fx-stroke: black; /* Set column header sort order indicator color */
+}
+
+/* TableScrollBar style */
+.table-view .scroll-bar:vertical {
+    -fx-background-color: black; /* Set vertical scroll bar background color */
+}
+
+.table-view .scroll-bar:vertical .thumb {
+    -fx-background-color: white; /* Set vertical scroll bar thumb color */
+}
+
+/* TableScrollBarIncrementButton style */
+.table-view .scroll-bar:vertical .increment-button,
+.table-view .scroll-bar:vertical .decrement-button {
+    -fx-background-color: black; /* Set vertical scroll bar increment/decrement button background color */
+}
+
+/* TableScrollBarIncrementArrow and TableScrollBarDecrementArrow style */
+.table-view .scroll-bar:vertical .increment-arrow,
+.table-view .scroll-bar:vertical .decrement-arrow {
+    -fx-background-color: white; /* Set vertical scroll bar increment/decrement arrow color */
+}
+
+/* TableScrollBarIncrementArrow:hover and TableScrollBarDecrementArrow:hover style */
+.table-view .scroll-bar:vertical .increment-arrow:hover,
+.table-view .scroll-bar:vertical .decrement-arrow:hover {
+    -fx-background-color: white; /* Set vertical scroll bar increment/decrement arrow hover color */
+}
+/* Style for ComboBox in table view with material style (without libraries) */
+.table-view .combo-box {
+    -fx-background-color: #ffffff; /* Background color */
+    -fx-background-radius: 2; /* Background radius */
+    -fx-border-radius: 4;
+    -fx-border-color: #616161; /* Border color */
+    -fx-border-width: 1px; /* Border width */
+    -fx-padding: 0.1em 0em; /* Padding - adjust values as needed */
+    -fx-font-size: 14px; /* Font size */
+    -fx-text-fill: #000000; /* Text color */
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 0, 2, 0, 0); /* Drop shadow effect */
+}
+
+/* Style for ComboBox in table view when hovered */
+.table-view .combo-box:hover {
+    -fx-background-color: #eeeeee; /* Background color when hovered */
+}
+
+/* Style for ComboBox in table view when pressed */
+.table-view .combo-box:pressed {
+    -fx-background-color: #e0e0e0; /* Background color when pressed */
+}
+
+/* Style for ComboBox in table view when focused */
+.table-view .combo-box:focused {
+    -fx-background-color: #ffffff; /* Background color when focused */
+    -fx-border-color: #42a5f5; /* Border color when focused */
+    -fx-effect: dropshadow(three-pass-box, rgba(66, 165, 245, 0.4), 0, 0, 0, 0); /* Drop shadow effect when focused */
+}
+
+/* Style for ComboBox arrow button */
+.table-view .combo-box .arrow-button {
+    -fx-background-color: transparent; /* Background color */
+    -fx-background-insets: 0; /* Background insets */
+    -fx-padding: 0.4em 0.4em 0.4em 0; /* Padding - adjust values as needed */
+}
+
+/* Style for ComboBox arrow button when hovered */
+.table-view .combo-box .arrow-button:hover {
+    -fx-background-color: #eeeeee; /* Background color when hovered */
+}
+
+/* Style for ComboBox arrow button when pressed */
+.table-view .combo-box .arrow-button:pressed {
+    -fx-background-color: #e0e0e0; /* Background color when pressed */
+}
+
+/* Style for ComboBox arrow button when focused */
+.table-view .combo-box .arrow-button:focused {
+    -fx-effect:dropshadow(three-pass-box, rgba(66, 165, 245, 0.4), 0, 0, 0, 0); /* Drop shadow effect when focused */
+}
+
+/* Style for ComboBox arrow icon */
+.table-view .combo-box .arrow-button .arrow {
+    -fx-fill: #000000; /* Icon color */
+}
+
+/* Button styles */
+.button {
+    font-size: 8px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    -fx-background-color: transparent;
+    cursor: pointer;
+    -fx-text-fill: #012D5A
+}
+
+/* Button click effect */
+.button:pressed {
+    -fx-text-fill: grey;
+    -fx-effect: null;
+    -fx-background-color: transparent;
+}

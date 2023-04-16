@@ -10,14 +10,16 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.geometry.Pos;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.util.Callback;
+import io.github.palexdev.materialfx.skins.legacy.MFXLegacyTableViewSkin;
 
 import java.sql.SQLException;
 import java.util.Objects;
@@ -47,7 +49,6 @@ public class SortOrdersController {
         staffMemberColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         notesColumn.setCellValueFactory(new PropertyValueFactory<>("additionalNotes"));
         timeColumn.setCellValueFactory(new PropertyValueFactory<>("requestDate"));
-        //statusColumn.setCellValueFactory(new PropertyValueFactory<>("requestStatus"));
         requestTypeColumn.setCellValueFactory(new PropertyValueFactory<>("itemType"));
         requestTypeColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         addButtonToTable();
@@ -65,15 +66,11 @@ public class SortOrdersController {
             } catch (SQLException | ClassNotFoundException | ItemNotFoundException e) {
                 throw new RuntimeException(e);
             }
-
         });
 
-        //dao = FoodRequestDAO.createInstance(""
-
         statusColumn.setCellFactory(column -> new TableCell<>() {
-            private final MFXComboBox<RequestStatus> changeStatusButton = new MFXComboBox<RequestStatus>(statusList);
+            private final ComboBox<RequestStatus> changeStatusButton = new ComboBox<RequestStatus>(statusList);
             {
-                //changeStatusButton.setValue();
                 changeStatusButton.setOnAction(event -> {
                     ItemRequest request = (ItemRequest) getTableView().getItems().get(getIndex());
                     try {
@@ -93,8 +90,47 @@ public class SortOrdersController {
                     setGraphic(null);
                 } else {
                     ItemRequest sr = getTableView().getItems().get(getIndex());
-                    changeStatusButton.getSelectionModel().selectItem(sr.getRequestStatus());
-                    setGraphic(changeStatusButton);
+                    changeStatusButton.setValue(sr.getRequestStatus());
+
+                    Circle circle = new Circle(8);
+                    RequestStatus status = sr.getRequestStatus();
+                    switch (status) {
+                        case Unstarted:
+                            circle.setFill(Color.RED);
+                            break;
+                        case Processing:
+                            circle.setFill(Color.YELLOW);
+                            break;
+                        case Done:
+                            circle.setFill(Color.LIMEGREEN);
+                            break;
+                        default:
+                            circle.setFill(Color.TRANSPARENT);
+                            break;
+                    }
+
+                    changeStatusButton.valueProperty().addListener((observable, oldValue, newValue) -> {
+                        switch (newValue) {
+                            case Unstarted:
+                                circle.setFill(Color.RED);
+                                break;
+                            case Processing:
+                                circle.setFill(Color.YELLOW);
+                                break;
+                            case Done:
+                                circle.setFill(Color.GREEN);
+                                break;
+                            default:
+                                circle.setFill(Color.TRANSPARENT);
+                                break;
+                        }
+                    });
+
+                    HBox hbox = new HBox(10);
+                    hbox.setAlignment(Pos.CENTER_LEFT);
+                    hbox.getChildren().addAll(changeStatusButton, circle);
+
+                    setGraphic(hbox);
                 }
             }
         });

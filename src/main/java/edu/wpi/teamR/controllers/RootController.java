@@ -1,39 +1,63 @@
 package edu.wpi.teamR.controllers;
 
+import edu.wpi.teamR.App;
 import edu.wpi.teamR.navigation.Navigation;
 import edu.wpi.teamR.navigation.Screen;
+import javafx.animation.PauseTransition;
 import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.InputEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 import org.controlsfx.control.PopOver;
 
 import java.io.IOException;
 
 public class RootController {
-  @FXML VBox homeButton;
+  @FXML VBox bwhHome;
   @FXML VBox profileButton;
   @FXML VBox newRequestButton;
   @FXML VBox pendingRequestButton;
   @FXML VBox pathfindingButton;
   @FXML VBox helpButton;
   @FXML VBox logoutButton;
+  @FXML VBox exitButton;
   @FXML Text flowerDelivery;
   @FXML Text furnitureDelivery;
   @FXML Text mealDelivery;
 
   @FXML VBox sidebarVBox;
+  @FXML
+  HBox rootHbox;
+
+  @FXML
+  ImageView profileIcon;
+  @FXML
+  Circle circle;
+
+  PauseTransition transition;
+
+  private static RootController instance;
+
+  EventHandler<InputEvent> ssevent = evt -> transition.playFromStart();
 
   @FXML
   public void initialize() {
-    homeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
-    profileButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE));
+    instance = this;
+
+    bwhHome.setOnMouseClicked(event -> navigate(Screen.HOME));
+    profileButton.setOnMouseClicked(event -> navigate(Screen.SIGNAGE));
     newRequestButton.setOnMouseClicked(event -> openRequest());
-    pendingRequestButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SORT_ORDERS));
-    pathfindingButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP));
-    logoutButton.setOnMouseClicked(event -> Platform.exit());
+    pendingRequestButton.setOnMouseClicked(event -> navigate(Screen.SORT_ORDERS));
+    pathfindingButton.setOnMouseClicked(event -> navigate(Screen.MAP));
+    exitButton.setOnMouseClicked(event -> Platform.exit());
 
     helpButton.setOnMouseClicked(
             event -> {
@@ -46,6 +70,15 @@ public class RootController {
 
     sidebarVBox.setVisible(false);
     sidebarVBox.setManaged(false);
+
+    Duration delay = Duration.seconds(120);
+    transition = new PauseTransition(delay);
+    transition.setOnFinished(evt -> timeout());
+
+    // restart transition on user interaction
+    App.getPrimaryStage().addEventFilter(InputEvent.ANY, ssevent);
+
+    transition.play();
   }
 
   @FXML
@@ -76,23 +109,40 @@ public class RootController {
 
   @FXML private void mealRequest() {
     RequestController.requestType = new RequestTypeMeal();
-    Navigation.navigate(Screen.MEAL_REQUEST);
-    sidebarVBox.setVisible(false);
-    sidebarVBox.setManaged(false);
+    navigate(Screen.MEAL_REQUEST);
   }
 
   @FXML private void flowerRequest() {
     RequestController.requestType = new RequestTypeFlower();
-    Navigation.navigate(Screen.FLOWER_REQUEST);
-    sidebarVBox.setVisible(false);
-    sidebarVBox.setManaged(false);
+    navigate(Screen.FLOWER_REQUEST);
   }
 
   @FXML private void furnitureRequest() {
     RequestController.requestType = new RequestTypeFurniture();
-    Navigation.navigate(Screen.FURNITURE_REQUEST);
-    sidebarVBox.setVisible(false);
-    sidebarVBox.setManaged(false);
+    navigate(Screen.FURNITURE_REQUEST);
   }
 
+  /* This is a little buggy and could be worked on more. */
+  private void timeout() {
+      rootHbox.setVisible(false);
+      rootHbox.setManaged(false);
+      Navigation.navigate(Screen.SCREENSAVER);
+      App.getPrimaryStage().removeEventFilter(InputEvent.ANY, ssevent);
+  }
+
+  public static RootController getInstance() {
+    return instance;
+  }
+
+  private void navigate(Screen screen) {
+    sidebarVBox.setVisible(false);
+    sidebarVBox.setManaged(false);
+    Navigation.navigate(screen);
+  }
+
+  public void showSidebar() {
+    rootHbox.setVisible(true);
+    rootHbox.setManaged(true);
+    App.getPrimaryStage().addEventFilter(InputEvent.ANY, ssevent);
+  }
 }

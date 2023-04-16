@@ -3,6 +3,9 @@ package edu.wpi.teamR;
 import edu.wpi.teamR.navigation.Navigation;
 import edu.wpi.teamR.navigation.Screen;
 import java.io.IOException;
+import java.sql.SQLException;
+
+import edu.wpi.teamR.pathfinding.MapStorage;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -19,6 +22,8 @@ public class App extends Application {
 
   @Setter @Getter private static Stage primaryStage;
   @Setter @Getter private static BorderPane rootPane;
+  @Getter
+  static MapStorage mapData;
 
   @Override
   public void init() {
@@ -26,7 +31,7 @@ public class App extends Application {
   }
 
   @Override
-  public void start(Stage primaryStage) throws IOException {
+  public void start(Stage primaryStage) throws IOException, SQLException, ClassNotFoundException {
     /* primaryStage is generally only used if one of your components require the stage to display */
     App.primaryStage = primaryStage;
     primaryStage.setTitle("Team R Hospital Application");
@@ -35,12 +40,15 @@ public class App extends Application {
 
     final FXMLLoader loader = new FXMLLoader(App.class.getResource("views/Root.fxml"));
     final BorderPane root = loader.load();
-    loadFonts();
 
     App.rootPane = root;
+    App.mapData = new MapStorage();
 
     final Scene scene = new Scene(root);
     primaryStage.setScene(scene);
+
+    primaryStage.getScene().getStylesheets().add("https://fonts.googleapis.com/css2?family=Lato:wght@700&family=Nunito+Sans&family=Quicksand&family=Roboto:wght@300;400&display=swap");
+
     primaryStage.setMaximized(true);
     primaryStage.show();
 
@@ -50,9 +58,5 @@ public class App extends Application {
   @Override
   public void stop() {
     log.info("Shutting Down");
-  }
-
-  public void loadFonts() {
-    Font.loadFont(getClass().getResourceAsStream("fonts/Rubik_Pixels/RubikPixels-Regular.ttf"), 36);
   }
 }

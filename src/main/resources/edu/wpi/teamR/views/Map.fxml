@@ -14,41 +14,38 @@
 <?import net.kurobako.gesturefx.GesturePane?>
 <?import org.controlsfx.control.SearchableComboBox?>
 
-<BorderPane fx:id="borderPane" prefHeight="720.0" prefWidth="1280.0" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamR.controllers.MapController">
+<BorderPane fx:id="borderPane" prefHeight="720.0" prefWidth="1280.0" stylesheets="@../styles/map.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamR.controllers.MapController">
    <center>
       <AnchorPane fx:id="anchorPane" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
             <GesturePane fx:id="gesturePane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-            <VBox alignment="CENTER_LEFT" layoutX="14.0" layoutY="14.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="312.0" prefWidth="325.0" styleClass="map-vbox">
+            <VBox alignment="CENTER_LEFT" layoutX="14.0" layoutY="14.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="325.0" prefWidth="300.0" styleClass="map-vbox">
                <children>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="title" text="Pathfinding">
                      <font>
                         <Font size="36.0" />
                      </font>
                   </Text>
-                  <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0">
+                  <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                      <children>
-                        <VBox prefHeight="200.0" prefWidth="100.0">
+                        <VBox prefHeight="200.0" prefWidth="130.0">
                            <children>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="body" text="Start Location">
                                  <font>
                                     <Font size="24.0" />
                                  </font>
                               </Text>
-                              <SearchableComboBox fx:id="startField" prefWidth="175.0" />
+                              <SearchableComboBox fx:id="startField" prefHeight="30.0" prefWidth="175.0" />
                            </children>
-                           <padding>
-                              <Insets right="20.0" />
-                           </padding>
                         </VBox>
-                        <VBox prefHeight="200.0" prefWidth="100.0">
+                        <VBox prefHeight="200.0" prefWidth="130.0">
                            <children>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="body" text="End Location">
                                  <font>
                                     <Font size="24.0" />
                                  </font>
                               </Text>
-                              <SearchableComboBox fx:id="endField" prefWidth="156.0" />
+                              <SearchableComboBox fx:id="endField" prefHeight="30.0" prefWidth="150.0" />
                            </children>
                         </VBox>
                      </children>
@@ -73,20 +70,40 @@
                         <MFXCheckbox fx:id="textCheckbox" />
                      </children>
                   </HBox>
+                  <HBox alignment="CENTER" prefHeight="80.0" spacing="10.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="body" text="Show Location Names">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Text>
+                        <MFXCheckbox fx:id="locationNamesCheckbox" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="70.0" spacing="10.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="body" text="Algorithm">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Text>
+                        <SearchableComboBox fx:id="algoBox" prefHeight="30.0" prefWidth="150.0" />
+                     </children>
+                  </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0">
                      <children>
-                        <Button fx:id="searchButton" minWidth="300.0" prefHeight="30.0" text="Search" HBox.hgrow="ALWAYS" />
+                        <Button fx:id="searchButton" minWidth="280.0" prefHeight="30.0" text="Search" HBox.hgrow="ALWAYS" />
                      </children>
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                      <children>
-                        <Button fx:id="clearButton" prefHeight="30.0" prefWidth="145.0" text="Clear Path" HBox.hgrow="ALWAYS" />
-                        <Button fx:id="resetButton" prefHeight="30.0" prefWidth="145.0" text="Reset Zoom" HBox.hgrow="ALWAYS" />
+                        <Button fx:id="clearButton" prefHeight="30.0" prefWidth="135.0" text="Clear Path" HBox.hgrow="ALWAYS" />
+                        <Button fx:id="resetButton" prefHeight="30.0" prefWidth="135.0" text="Reset Zoom" HBox.hgrow="ALWAYS" />
                      </children>
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="319.0" spacing="10.0">
                      <children>
-                        <Button fx:id="floorDownButton" prefHeight="30.0" prefWidth="145.0" text="Floor Down">
+                        <Button fx:id="floorDownButton" prefHeight="30.0" prefWidth="135.0" text="Floor Down">
                            <graphic>
                               <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -94,7 +111,7 @@
                                  </image>
                               </ImageView>
                            </graphic></Button>
-                        <Button fx:id="floorUpButton" prefHeight="30.0" prefWidth="145.0" text="Floor Up">
+                        <Button fx:id="floorUpButton" prefHeight="30.0" prefWidth="135.0" text="Floor Up">
                            <graphic>
                               <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -106,14 +123,14 @@
                   </HBox>
                </children>
                <opaqueInsets>
-                  <Insets top="10.0" />
+                  <Insets />
                </opaqueInsets></VBox>
             <Text fill="WHITE" layoutY="409.0" strokeType="OUTSIDE" strokeWidth="0.0">
                <font>
                   <Font size="24.0" />
                </font>
             </Text>
-            <HBox layoutX="607.0" layoutY="644.0" prefHeight="30.0" styleClass="map-vbox" AnchorPane.bottomAnchor="26.0" AnchorPane.leftAnchor="607.0" AnchorPane.rightAnchor="606.0">
+            <HBox alignment="CENTER" layoutX="607.0" layoutY="644.0" maxWidth="100.0" prefHeight="30.0" styleClass="map-vbox" AnchorPane.bottomAnchor="26.0" AnchorPane.leftAnchor="607.0" AnchorPane.rightAnchor="611.0">
                <children>
                   <Text fx:id="floorText" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="body" text="Floor" HBox.hgrow="ALWAYS">
                      <font>
@@ -121,6 +138,9 @@
                      </font>
                   </Text>
                </children>
+               <padding>
+                  <Insets left="10.0" right="10.0" />
+               </padding>
             </HBox>
          </children>
       </AnchorPane>

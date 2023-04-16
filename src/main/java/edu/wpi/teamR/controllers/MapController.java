@@ -1,7 +1,7 @@
 package edu.wpi.teamR.controllers;
 
 import edu.wpi.teamR.ItemNotFoundException;
-import edu.wpi.teamR.Main;
+import edu.wpi.teamR.App;
 import edu.wpi.teamR.mapdb.MapDatabase;
 import edu.wpi.teamR.navigation.Navigation;
 import edu.wpi.teamR.navigation.Screen;
@@ -11,6 +11,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import javafx.animation.Interpolator;
 import javafx.collections.FXCollections;
@@ -53,18 +54,14 @@ public class MapController {
     @FXML Text floorText;
     @FXML Button clearButton;
     @FXML MFXCheckbox textCheckbox;
-    URL firstFloorLink = Main.class.getResource("images/01_thefirstfloor.png");
-    URL secondFloorLink = Main.class.getResource("images/02_thesecondfloor.png");
-    URL thirdFloorLink = Main.class.getResource("images/03_thethirdfloor.png");
-    URL LLOneLink = Main.class.getResource("images/00_thelowerlevel1.png");
-    URL LLTwoLink = Main.class.getResource("images/00_thelowerlevel2.png");
+
+    @FXML MFXCheckbox locationNamesCheckbox;
+    AnchorPane[] locationPanes = new AnchorPane[5];
 
     ImageView imageView;
-    int currentFloor = 2;
 
-    URL[] linkArray = {
-            LLTwoLink, LLOneLink, firstFloorLink, secondFloorLink, thirdFloorLink,
-    };
+    private Map<Integer, ImageView> floorMaps = new HashMap<>();
+    int currentFloor = 2;
 
     String[] floorNames = {
             "Lower Level Two",
@@ -96,14 +93,27 @@ public class MapController {
 
     @FXML
     public void initialize() throws Exception {
+        mapdb = App.getMapData().getMapdb();
+        nodes = App.getMapData().getNodes();
+        edges = App.getMapData().getEdges();
+        locationNames = App.getMapData().getLocationNames();
+        moves = App.getMapData().getMoves();
+
+        floorMaps.put(0, App.getMapData().getLowerLevel2());
+        floorMaps.put(1, App.getMapData().getLowerLevel1());
+        floorMaps.put(2, App.getMapData().getFirstFloor());
+        floorMaps.put(3, App.getMapData().getSecondFloor());
+        floorMaps.put(4, App.getMapData().getThirdFloor());
+
         for (int i = 0; i < 5; i++) {
             paths[i] = new AnchorPane();
+            locationPanes[i] = new AnchorPane();
             floorNamesMap.put(nodeFloorNames[i], i);
+            displayLocationNames(i);
         }
 
-        imageView = new ImageView(linkArray[currentFloor].toExternalForm());
         gesturePane.setContent(mapPane);
-        mapPane.getChildren().add(imageView);
+        mapPane.getChildren().add(floorMaps.get(currentFloor));
         gesturePane.setMinScale(0.25);
         gesturePane.setMaxScale(2);
         resetButton.setOnMouseClicked(event -> reset());
@@ -123,13 +133,15 @@ public class MapController {
 
         reset();
 
-        mapdb = new MapDatabase();
-        nodes = mapdb.getNodes();
-        edges = mapdb.getEdges();
-        locationNames = mapdb.getLocationNames();
-        moves = mapdb.getMoves();
-
         setChoiceboxes();
+
+        locationNamesCheckbox.setOnAction(event -> {
+            if (locationNamesCheckbox.isSelected()) {
+                mapPane.getChildren().add(locationPanes[currentFloor]);
+            } else {
+                mapPane.getChildren().remove(locationPanes[currentFloor]);
+            }
+        });
     }
 
     // Reset to original zoom
@@ -176,9 +188,9 @@ public class MapController {
     }
 
     public void displayFloorUp() {
-        if (currentFloor < 5) {
+        if (currentFloor < 4) {
             currentFloor++;
-            imageView = new ImageView(linkArray[currentFloor].toExternalForm());
+            imageView = floorMaps.get(currentFloor);
             mapPane.getChildren().clear();
             mapPane.getChildren().add(imageView);
             mapPane.getChildren().add(paths[currentFloor]);
@@ -190,7 +202,7 @@ public class MapController {
     public void displayFloorDown() {
         if (currentFloor > 0) {
             currentFloor--;
-            imageView = new ImageView(linkArray[currentFloor].toExternalForm());
+            imageView = floorMaps.get(currentFloor);
             mapPane.getChildren().clear();
             mapPane.getChildren().add(imageView);
             mapPane.getChildren().add(paths[currentFloor]);
@@ -200,9 +212,9 @@ public class MapController {
     }
 
     public void displayFloorNum(int floorNum) {
-        if (floorNum < 5) {
+        if (floorNum < 4) {
             currentFloor = floorNum;
-            imageView = new ImageView(linkArray[currentFloor].toExternalForm());
+            imageView = floorMaps.get(currentFloor);
             mapPane.getChildren().clear();
             mapPane.getChildren().add(imageView);
             mapPane.getChildren().add(paths[currentFloor]);
@@ -274,5 +286,23 @@ public class MapController {
         ObservableList<String> choices = FXCollections.observableArrayList(names);
         startField.setItems(choices);
         endField.setItems(choices);
+    }
+
+    public void displayLocationNames(int floor) throws SQLException {
+        if (floor < 4) {
+            String f = nodeFloorNames[floor];
+            ArrayList<MapLocation> locs = mapdb.getMapLocationsByFloor(f);
+            if (locs.size() > 0) {
+                for (MapLocation m: locs) {
+                    Text t = new Text();
+                    Node n = m.getNode();
+                    t.setText(m.getLocationNames().get(0).getShortName()); //m.getLocationNames().get(0).getShortName()
+                    t.setX(n.getXCoord() + 10);
+                    t.setY(n.getYCoord());
+
+                    locationPanes[floor].getChildren().add(t);
+                }
+            }
+        }
     }
 }

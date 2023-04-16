@@ -4,17 +4,19 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane prefHeight="720.0" prefWidth="1280.0" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamR.controllers.RootController">
+<BorderPane fx:id="root" prefHeight="720.0" prefWidth="1280.0" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamR.controllers.RootController">
    <left>
-      <HBox BorderPane.alignment="CENTER">
+      <HBox fx:id="rootHbox" BorderPane.alignment="CENTER">
          <children>
             <VBox fx:id="sidebar" alignment="CENTER" prefWidth="75.0" style="-fx-background-color: #012D5A;" HBox.hgrow="ALWAYS">
                <children>
-                  <VBox alignment="CENTER" prefWidth="75.0" VBox.vgrow="ALWAYS">
+                  <VBox fx:id="bwhHome" alignment="CENTER" prefHeight="90.0" prefWidth="75.0" styleClass="sidebar-vbox" VBox.vgrow="ALWAYS">
                      <children>
                         <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS">
                            <image>
@@ -23,27 +25,25 @@
                         </ImageView>
                      </children>
                   </VBox>
-                  <VBox fx:id="homeButton" alignment="CENTER" prefWidth="75.0" styleClass="sidebar-vbox" VBox.vgrow="ALWAYS">
+                  <VBox fx:id="profileButton" alignment="CENTER" prefHeight="90.0" prefWidth="75.0" styleClass="sidebar-vbox" VBox.vgrow="ALWAYS">
                      <children>
-                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS">
-                           <image>
-                              <Image url="@../images/sidebar/home.png" />
-                           </image>
-                        </ImageView>
-                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Roboto;" text="Home" VBox.vgrow="ALWAYS" />
-                     </children>
-                  </VBox>
-                  <VBox fx:id="profileButton" alignment="CENTER" prefWidth="75.0" styleClass="sidebar-vbox" VBox.vgrow="ALWAYS">
-                     <children>
-                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS">
-                           <image>
-                              <Image url="@../images/sidebar/profile.png" />
-                           </image>
-                        </ImageView>
+                        <StackPane>
+                           <children>
+                              <ImageView fx:id="profileIcon" fitHeight="42.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/sidebar/defaultpfp.png" />
+                                 </image>
+                                 <clip>
+                                    <Circle centerX="21" centerY="21" radius="21" />
+                                 </clip>
+                              </ImageView>
+                              <Circle fx:id="circle" fill="TRANSPARENT" radius="21" stroke="WHITE" strokeWidth="3" />
+                           </children>
+                        </StackPane>
                         <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Roboto;" text="Profile" VBox.vgrow="ALWAYS" />
                      </children>
                   </VBox>
-                  <VBox fx:id="newRequestButton" alignment="CENTER" prefWidth="75.0" styleClass="sidebar-vbox" VBox.vgrow="ALWAYS">
+                  <VBox fx:id="newRequestButton" alignment="CENTER" prefHeight="90.0" prefWidth="75.0" styleClass="sidebar-vbox" VBox.vgrow="ALWAYS">
                      <children>
                         <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS">
                            <image>
@@ -55,7 +55,7 @@
                         <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Roboto;" text="Request" VBox.vgrow="ALWAYS" />
                      </children>
                   </VBox>
-                  <VBox fx:id="pendingRequestButton" alignment="CENTER" prefWidth="75.0" styleClass="sidebar-vbox" VBox.vgrow="ALWAYS">
+                  <VBox fx:id="pendingRequestButton" alignment="CENTER" prefHeight="90.0" prefWidth="75.0" styleClass="sidebar-vbox" VBox.vgrow="ALWAYS">
                      <children>
                         <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS">
                            <image>
@@ -67,7 +67,7 @@
                         <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Roboto;" text="Request" VBox.vgrow="ALWAYS" />
                      </children>
                   </VBox>
-                  <VBox fx:id="pathfindingButton" alignment="CENTER" prefWidth="75.0" styleClass="sidebar-vbox" VBox.vgrow="ALWAYS">
+                  <VBox fx:id="pathfindingButton" alignment="CENTER" prefHeight="90.0" prefWidth="75.0" styleClass="sidebar-vbox" VBox.vgrow="ALWAYS">
                      <children>
                         <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS">
                            <image>
@@ -77,7 +77,7 @@
                         <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Roboto;" text="Pathfinding" VBox.vgrow="ALWAYS" />
                      </children>
                   </VBox>
-                  <VBox fx:id="helpButton" alignment="CENTER" prefWidth="75.0" styleClass="sidebar-vbox" VBox.vgrow="ALWAYS">
+                  <VBox fx:id="helpButton" alignment="CENTER" prefHeight="90.0" prefWidth="75.0" styleClass="sidebar-vbox" VBox.vgrow="ALWAYS">
                      <children>
                         <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS">
                            <image>
@@ -87,26 +87,40 @@
                         <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Roboto;" text="Help" VBox.vgrow="ALWAYS" />
                      </children>
                   </VBox>
-                  <VBox fx:id="logoutButton" alignment="CENTER" prefWidth="75.0" styleClass="sidebar-vbox" VBox.vgrow="ALWAYS">
+                  <VBox prefHeight="90.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS">
-                           <image>
-                              <Image url="@../images/sidebar/logout.png" />
-                           </image>
-                        </ImageView>
-                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Roboto;" text="Logout" VBox.vgrow="ALWAYS" />
+                        <VBox fx:id="logoutButton" alignment="CENTER" prefWidth="75.0" styleClass="sidebar-vbox" VBox.vgrow="ALWAYS">
+                           <children>
+                              <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS">
+                                 <image>
+                                    <Image url="@../images/sidebar/logout.png" />
+                                 </image>
+                              </ImageView>
+                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Roboto;" text="Logout" VBox.vgrow="ALWAYS" />
+                           </children>
+                        </VBox>
+                        <VBox fx:id="exitButton" alignment="CENTER" prefWidth="75.0" styleClass="sidebar-vbox" VBox.vgrow="ALWAYS">
+                           <children>
+                              <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS">
+                                 <image>
+                                    <Image url="@../images/sidebar/exit.png" />
+                                 </image>
+                              </ImageView>
+                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Roboto;" text="Exit" VBox.vgrow="ALWAYS" />
+                           </children>
+                        </VBox>
                      </children>
                   </VBox>
                </children>
             </VBox>
-            <VBox fx:id="sidebarVBox" prefHeight="720.0" prefWidth="300.0" style="-fx-background-color: #A3B9C9;" HBox.hgrow="ALWAYS">
+            <VBox fx:id="sidebarVBox" prefHeight="720.0" prefWidth="252.0" style="-fx-background-color: #A3B9C9;" HBox.hgrow="ALWAYS">
                <children>
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="title" text="Service Requests" translateX="5.0" VBox.vgrow="ALWAYS" />
-                  <Line endX="181.9140167236328" startX="-100.0" stroke="WHITE" strokeWidth="2.0" translateX="5.0" VBox.vgrow="ALWAYS" />
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="sr-sidebar-title" text="Service Requests" translateX="5.0" VBox.vgrow="ALWAYS" />
+                  <Line endX="240.0" stroke="WHITE" strokeWidth="1.5" translateX="5.0" translateY="3.0" VBox.vgrow="ALWAYS" />
                   <Text fx:id="flowerDelivery" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="body" text="Flower Delivery" translateX="15.0" translateY="20.0" VBox.vgrow="ALWAYS" />
                   <Text fx:id="furnitureDelivery" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="body" text="Furniture Delivery" translateX="15.0" translateY="30.0" VBox.vgrow="ALWAYS" />
                   <Text fx:id="mealDelivery" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="body" text="Meal Delivery" translateX="15.0" translateY="40.0" VBox.vgrow="ALWAYS" />
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Chose an option to get started" translateX="15.0" translateY="70.0" />
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="sr-sidebar-subtitle" text="Chose an option to get started" translateX="15.0" translateY="70.0" />
                </children>
             </VBox>
          </children>

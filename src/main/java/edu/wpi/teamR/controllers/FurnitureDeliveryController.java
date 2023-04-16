@@ -23,8 +23,8 @@ public class FurnitureDeliveryController {
     @FXML MFXTextField nameField;
     @FXML MFXTextField staffMemberField;
     @FXML MFXTextField notesField;
-    @FXML SearchableComboBox locationField;
-    @FXML SearchableComboBox furnitureTypeField;
+    @FXML SearchableComboBox<String> locationField;
+    @FXML SearchableComboBox<String> furnitureTypeField;
 
     @FXML public void initialize() {
         cancelButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
