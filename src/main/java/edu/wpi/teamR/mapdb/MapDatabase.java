@@ -18,6 +18,7 @@ public class MapDatabase {
     private EdgeDAO edgeDao;
     private MoveDAO moveDao;
     private LocationNameDAO locationNameDao;
+    private DirectionArrowDAO directionArrowDAO;
 
     public MapDatabase() throws SQLException, ClassNotFoundException {
         this.connection = Configuration.getConnection();
@@ -25,6 +26,7 @@ public class MapDatabase {
         this.edgeDao = new EdgeDAO(connection);
         this.moveDao = new MoveDAO(connection);
         this.locationNameDao = new LocationNameDAO(connection);
+        this.directionArrowDAO = new DirectionArrowDAO(connection);
     }
 
     // old code for making mapDatabase singleton
@@ -218,6 +220,26 @@ public class MapDatabase {
         mapLocations.add(new MapLocation(lastNode, locationNames)); //the last locationName will already have been added
 
         return mapLocations;
+    }
+
+    public DirectionArrow addDirectionArrow(String longname, int kioskID, Direction direction) throws SQLException {
+        return directionArrowDAO.addDirectionArrow(longname, kioskID, direction);
+    }
+
+    public void deleteDirectionArrowByLongname(String longname) throws SQLException, ItemNotFoundException {
+        directionArrowDAO.deleteDirectionArrowByLongname(longname);
+    }
+
+    public void deleteDirectionArrowsByKiosk(int kioskID) throws SQLException, ItemNotFoundException {
+        directionArrowDAO.deleteDirectionArrowsByKiosk(kioskID);
+    }
+
+    public ArrayList<DirectionArrow> getDirectionArrows() throws SQLException {
+        return directionArrowDAO.getDirectionArrows();
+    }
+
+    public ArrayList<DirectionArrow> getDirectionArrowsByKiosk(int kioskID) throws SQLException {
+        return directionArrowDAO.getDirectionArrowsByKiosk(kioskID);
     }
 
     public ArrayList<? extends MapData> readCSV(String path, Class<? extends MapData> _class) throws IOException, CSVParameterException, SQLException {
