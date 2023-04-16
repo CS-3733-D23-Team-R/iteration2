@@ -16,7 +16,7 @@ public class NodeDAOTest {
 
     @BeforeAll
     static void startup() throws SQLException, ClassNotFoundException {
-        Configuration.changeSchemaName("iteration1test");
+        Configuration.changeSchemaName("iteration2test");
         connection = Configuration.getConnection();
         nodeDAO = new NodeDAO(connection);
     }
