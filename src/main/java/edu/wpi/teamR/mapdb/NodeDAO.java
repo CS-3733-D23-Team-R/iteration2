@@ -1,6 +1,7 @@
 package edu.wpi.teamR.mapdb;
 
 import edu.wpi.teamR.Configuration;
+import edu.wpi.teamR.ItemNotFoundException;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -33,10 +34,11 @@ public class NodeDAO {
         return nodes;
     }
 
-    Node getNodeByID(int nodeID) throws SQLException {
+    Node getNodeByID(int nodeID) throws SQLException, ItemNotFoundException {
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery("SELECT * FROM "+Configuration.getNodeSchemaNameTableName()+" WHERE nodeID="+nodeID+";");
-        resultSet.next();
+        if (!resultSet.next())
+            throw new ItemNotFoundException();
         int xCoord = resultSet.getInt("xCoord");
         int yCoord = resultSet.getInt("yCoord");
         String building = resultSet.getString("building");

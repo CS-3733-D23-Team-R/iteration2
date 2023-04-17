@@ -38,7 +38,7 @@ public class MapDatabase {
         return nodeDao.getNodes();
     }
 
-    public Node getNodeByID(int nodeID) throws SQLException {
+    public Node getNodeByID(int nodeID) throws SQLException, ItemNotFoundException {
         return nodeDao.getNodeByID(nodeID);
     }
 
