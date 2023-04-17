@@ -57,7 +57,7 @@ public class MapDatabase {
         return nodeDao.addNode(xCoord, yCoord, floorNum, building);
     }
 
-    public Node modifyCoords(int nodeID, int newXCoord, int newYCoord) throws SQLException {
+    public Node modifyCoords(int nodeID, int newXCoord, int newYCoord) throws SQLException, ItemNotFoundException {
         return nodeDao.modifyCoords(nodeID, newXCoord, newYCoord);
     }
 

@@ -74,7 +74,7 @@ public class NodeDAO {
         return new Node(nodeID, xCoord, yCoord, floorNum, building);
     }
 
-    Node modifyCoords(int nodeID, int xCoord, int yCoord) throws SQLException {
+    Node modifyCoords(int nodeID, int xCoord, int yCoord) throws SQLException, ItemNotFoundException {
         PreparedStatement preparedStatement = connection.prepareStatement("UPDATE "+Configuration.getNodeSchemaNameTableName()+" SET xCoord=?, yCoord=? WHERE nodeID=?;");
         preparedStatement.setInt(1, xCoord);
         preparedStatement.setInt(2, yCoord);

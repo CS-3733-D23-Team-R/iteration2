@@ -56,7 +56,7 @@ class MapUpdaterTest {
     }
 
     @Test
-    void modifyCoordsUndo() throws SQLException {
+    void modifyCoordsUndo() throws SQLException, ItemNotFoundException {
         MapUpdater mapUpdater = new MapUpdater(mapdb);
         Node i = mapdb.addNode(12, 21, "flop", "bloud");
         Node u = mapUpdater.modifyCoords(i.getNodeID(), 32, 23);
@@ -77,7 +77,7 @@ class MapUpdaterTest {
     }
 
     @Test
-    void modifyCoordsUpdate() throws SQLException {
+    void modifyCoordsUpdate() throws SQLException, ItemNotFoundException {
         MapUpdater mapUpdater = new MapUpdater(mapdb);
         Node i = mapdb.addNode(12, 21, "flop", "bloud");
         Node u = mapUpdater.modifyCoords(i.getNodeID(), 32, 23);

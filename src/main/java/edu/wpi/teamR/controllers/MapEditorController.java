@@ -281,7 +281,7 @@ public class MapEditorController {
         }
     }
 
-    public void displayEdgesByFloor(int floor) throws SQLException {
+    public void displayEdgesByFloor(int floor) throws SQLException, ItemNotFoundException {
         if (floor < 4) {
             String f = nodeFloorNames[floor];
             ArrayList<Edge> edges = mapdb.getEdgesByFloor(f);
