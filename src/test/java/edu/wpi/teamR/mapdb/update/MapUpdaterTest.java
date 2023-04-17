@@ -113,9 +113,9 @@ class MapUpdaterTest {
         UndoData undo = mapUpdater.undo().get(0);
         mapUpdater.submitUpdates();
         assertEquals(0, mapdb.getNodes().size());
-//        assertThrows(ItemNotFoundException.class, () -> {
-//            mapdb.getNodeByID(i.getNodeID());
-//        });
+        assertThrows(ItemNotFoundException.class, () -> {
+            mapdb.getNodeByID(i.getNodeID());
+        });
     }
 
     @Test
