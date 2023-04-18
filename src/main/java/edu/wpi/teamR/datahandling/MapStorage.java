@@ -7,7 +7,7 @@ import lombok.Getter;
 
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.*;
 
 @Getter
 public class MapStorage {
@@ -24,11 +24,33 @@ public class MapStorage {
     public static ImageView secondFloor = new ImageView(secondFloorLink.toExternalForm());
     public static ImageView thirdFloor = new ImageView(thirdFloorLink.toExternalForm());
 
+    String[] floorNames = {
+            "Lower Level Two",
+            "Lower Level One",
+            "First Floor",
+            "Second Floor",
+            "Third Floor"
+    };
+
+    String[] nodeFloorNames = {
+            "L2",
+            "L1",
+            "1",
+            "2",
+            "3"
+    };
+
     private MapDatabase mapdb;
     ArrayList<Node> nodes;
     ArrayList<Edge> edges;
     ArrayList<LocationName> locationNames;
     ArrayList<Move> moves;
+
+    List<List<Node>> floors;
+    Map<Integer, List<Integer>> edgeMap;
+    Map<Integer, Node> nodeMap;
+
+    int temp_node_id = -1;
 
     public MapStorage() throws SQLException, ClassNotFoundException {
         mapdb = new MapDatabase();
@@ -36,8 +58,51 @@ public class MapStorage {
         edges = mapdb.getEdges();
         locationNames = mapdb.getLocationNames();
         moves = mapdb.getMoves();
+        floors = new ArrayList<>(5);
+        nodeMap = new HashMap<>();
+
+        for (Node n : nodes) {
+            nodeMap.put(n.getNodeID(), n);
+        }
+
+        for (int i = 0; i < 5; i++) {
+            nodes = mapdb.getNodesByFloor(nodeFloorNames[i]);
+            List<Node> floorNodes = new ArrayList<>();
+            floors.add(floorNodes);
+            for (Node n : nodes) {
+                nodeMap.put(n.getNodeID(), n);
+            }
+        }
+
+        for (Edge e : edges) {
+
+        }
     }
 
+    public Node getNodeByID(int nodeID) {
+        return nodeMap.get(nodeID);
+    }
+
+    public Collection<Node> getNodesByFloor(int floor) {
+        return floorNodeMaps.get(floor).values();
+    }
+
+    public List<Node> getNodesByType() {
+        return null;
+    }
+
+    public Node addNode(int xCoord, int yCoord, String floorNum, String building) {
+        Node n = new Node(temp_node_id, xCoord, yCoord, floorNum, building);
+        temp_node_id--;
+    }
+
+    private int getFloorNum(String floor) {
+        for (int i = 0; i < nodeFloorNames.length; i++) {
+            if (nodeFloorNames[i].equals(floor))
+                return i;
+        }
+        throw new RuntimeException("Floor not found");
+    }
 
     public static ImageView getLowerLevel2() {
         return lowerLevel2;

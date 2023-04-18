@@ -10,23 +10,64 @@ import java.sql.SQLException;
 import java.util.*;
 
 public class MapUpdater {
-    ArrayDeque<UpdateAction> actionQueue;
-    UpdateAction currentAction;
-    MapDatabase mapdb;
+    ArrayDeque<UndoAction> actionQueue;
+    UndoAction currentAction;
+    private final MapDatabase mapdb;
 
     private int cur_temp_id;
 
+    List<Node> nodes;
+    List<Edge> edges;
+    List<LocationName> locationNames;
+    List<Move> moves;
 
-    public MapUpdater(MapDatabase mapDatabase) {
+    List<List<Node>> floors;
+    Map<Node, List<Node>> edgeMap;
+    Map<Integer, Node> nodeMap;
+
+    String[] nodeFloorNames = {
+            "L2",
+            "L1",
+            "1",
+            "2",
+            "3"
+    };
+
+
+    public MapUpdater(MapDatabase mapDatabase) throws SQLException {
         actionQueue = new ArrayDeque<>();
         mapdb = mapDatabase;
         cur_temp_id = -1;
+
+        edges = mapdb.getEdges();
+        locationNames = mapdb.getLocationNames();
+        moves = mapdb.getMoves();
+        floors = new ArrayList<>(5);
+        nodeMap = new HashMap<>();
+        edgeMap = new HashMap<>();
+
+        for (Node n : nodes) {
+            nodeMap.put(n.getNodeID(), n);
+        }
+
+        for (int i = 0; i < 5; i++) {
+            nodes = mapdb.getNodesByFloor(nodeFloorNames[i]);
+            List<Node> floorNodes = new ArrayList<>();
+            floors.add(floorNodes);
+            for (Node n : nodes) {
+                nodeMap.put(n.getNodeID(), n);
+            }
+        }
+
+        for (Edge e : edges) {
+            edgeMap.put(nodeMap.get(e.getStartNode()), e.getEndNode());
+        }
     }
 
     public void startAction() {
         if (currentAction != null)
             actionQueue.addFirst(currentAction);
-        currentAction = new UpdateAction();
+        currentAction = new UndoAction();
     }
 
     public void endAction() {
@@ -41,7 +82,7 @@ public class MapUpdater {
         List<Integer> nodeIDs = new ArrayList<>();
         try {
             while (!actionQueue.isEmpty()) {
-                action = actionQueue.removeLast().getUpdates();
+                action = actionQueue.removeLast().getUndos();
                 for (UpdateData data : action) {
                     if (data.method().getName().equals("addNode")) {
                         Node returnedNode = (Node)data.method().invoke(mapdb, data.args());
@@ -64,62 +105,44 @@ public class MapUpdater {
 
     public List<UndoData> undo() {
         if (currentAction != null) actionQueue.addFirst(currentAction);
-        return actionQueue.removeFirst().getUndoData();
+        return actionQueue.removeFirst().getUndos();
     }
 
 
     public Node addNode(int xCoord, int yCoord, String floorNum, String building) {
-        if (currentAction == null) currentAction = new UpdateAction();
-        Method m;
+        if (currentAction == null) currentAction = new UndoAction();
         Node n = new Node(cur_temp_id, xCoord, yCoord, floorNum, building);
         cur_temp_id--;
-        try {
-            m = mapdb.getClass().getMethod("addNode", int.class, int.class, String.class, String.class);
-            currentAction.addUpdate(m, new Object[]{xCoord, yCoord, floorNum, building}, n, EditType.ADDITION);
-        } catch (NoSuchMethodException e) {
-            throw new RuntimeException(e);
-        }
+        floors.get(getFloorNum(floorNum)).add(n);
+        nodeMap.put(cur_temp_id, n);
+        currentAction.addUpdate(n, EditType.ADDITION);
         return n;
     }
 
     public Node modifyCoords(int nodeID, int xCoord, int yCoord) throws SQLException, ItemNotFoundException {
-        if (currentAction == null) currentAction = new UpdateAction();
-        Method m;
-        Node oldNode = mapdb.getNodeByID(nodeID);
+        if (currentAction == null) currentAction = new UndoAction();
+        Node oldNode = nodeMap.get(nodeID);
         Node newNode = new Node(oldNode.getNodeID(), xCoord, yCoord, oldNode.getFloorNum(), oldNode.getBuilding());
-        try {
-            m = mapdb.getClass().getMethod("modifyCoords", int.class, int.class, int.class);
-            currentAction.addUpdate(m, new Object[]{nodeID, xCoord, yCoord}, oldNode, EditType.MODIFICATION);
-        } catch (NoSuchMethodException e) {
-            throw new RuntimeException(e);
-        }
+        nodeMap.replace(nodeID, newNode);
+        currentAction.addUpdate(oldNode, EditType.MODIFICATION);
         return newNode;
     }
 
     public void deleteNode(int nodeID) throws SQLException {
-        if (currentAction == null) currentAction = new UpdateAction();
+        if (currentAction == null) currentAction = new UndoAction();
         deleteEdgesByNode(nodeID);
         deleteMovesByNode(nodeID);
-        Method m;
-        try {
-            m = mapdb.getClass().getMethod("deleteNode", int.class);
-            currentAction.addUpdate(m, new Object[]{nodeID}, mapdb.getNodeByID(nodeID), EditType.DELETION);
-        } catch (NoSuchMethodException | ItemNotFoundException e) {
-            throw new RuntimeException(e);
-        }
+        Node n = nodeMap.remove(nodeID);
+        floors.get(getFloorNum(n.getFloorNum())).remove(n);
+        currentAction.addUpdate(n, EditType.DELETION);
     }
 
 
     public Edge addEdge(int startNode, int endNode) {
-        if (currentAction == null) currentAction = new UpdateAction();
-        Method m;
+        if (currentAction == null) currentAction = new UndoAction();
         Edge edge = new Edge(startNode, endNode);
-        try {
-            m = mapdb.getClass().getMethod("addEdge", int.class, int.class);
-            currentAction.addUpdate(m, new Object[]{startNode, endNode}, edge, EditType.ADDITION);
-        } catch (NoSuchMethodException e) {
-            throw new RuntimeException(e);
-        }
+        currentAction.addUpdate(edge, EditType.ADDITION);
+        edges.add(edge);
         return edge;
     }
 
@@ -238,5 +261,13 @@ public class MapUpdater {
         } catch (NoSuchMethodException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private int getFloorNum(String floor) {
+        for (int i = 0; i < nodeFloorNames.length; i++) {
+            if (nodeFloorNames[i].equals(floor))
+                return i;
+        }
+        throw new RuntimeException("Floor not found");
     }
 }
