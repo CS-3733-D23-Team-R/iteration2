@@ -3,11 +3,8 @@ package edu.wpi.teamR.controllers;
 import edu.wpi.teamR.ItemNotFoundException;
 import edu.wpi.teamR.App;
 import edu.wpi.teamR.mapdb.MapDatabase;
-import edu.wpi.teamR.navigation.Navigation;
-import edu.wpi.teamR.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXCheckbox;
 
-import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,14 +21,14 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Line;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 import net.kurobako.gesturefx.*;
 import edu.wpi.teamR.pathfinding.*;
 import edu.wpi.teamR.mapdb.*;
 import org.controlsfx.control.SearchableComboBox;
-
-import javax.xml.stream.Location;
 
 public class MapController {
     @FXML
@@ -46,7 +43,7 @@ public class MapController {
     @FXML
     SearchableComboBox<String> endField;
     @FXML
-    SearchableComboBox<String> algorithm;
+    SearchableComboBox<String> algorithmChoicebox;
 
     @FXML BorderPane borderPane;
     @FXML AnchorPane anchorPane;
@@ -95,6 +92,8 @@ public class MapController {
 
     ObservableList<String> algorithms =
             FXCollections.observableArrayList("A-Star", "Breadth-First Search", "Depth-First Search");
+
+    Pathfinder pathfinder;
 
     @FXML
     public void initialize() throws Exception {
@@ -148,7 +147,9 @@ public class MapController {
             }
         });
 
-        algorithm.setItems(algorithms);
+        pathfinder = new Pathfinder(mapdb);
+        algorithmChoicebox.setItems(algorithms);
+        algorithmChoicebox.setValue("A-Star");
     }
 
     // Reset to original zoom
@@ -232,19 +233,19 @@ public class MapController {
 
     public void displayPath(String startLocation, String endLocation, Boolean accessible) throws Exception, ItemNotFoundException {
         clearPath();
+        updatePathfindingAlgorithm(algorithmChoicebox.getValue());
         mapPane.getChildren().add(paths[currentFloor]);
 
         int startID = idFromName(startLocation);
         int endID = idFromName(endLocation);
 
-        Pathfinder pathfinder = new Pathfinder(mapdb);
         Path mapPath = pathfinder.findPath(startID, endID, accessible);
         ArrayList<Integer> currentPath = mapPath.getPath();
 
         Node startNode = mapdb.getNodeByID(startID);
         Node endNode = mapdb.getNodeByID(endID);
 
-        if (startNode.getFloorNum() != nodeFloorNames[currentFloor]){
+        if (!startNode.getFloorNum().equals(nodeFloorNames[currentFloor])){
             displayFloorNum(floorNamesMap.get(startNode.getFloorNum()));
         }
 
@@ -256,10 +257,26 @@ public class MapController {
             Node n2 = mapdb.getNodeByID(mapPath.getPath().get(i + 1));
             if (n1.getFloorNum().equals(nodeFloorNames[drawFloor]) && n2.getFloorNum().equals(nodeFloorNames[drawFloor])) {
                 Line l1 = new Line(n1.getXCoord(), n1.getYCoord(), n2.getXCoord(), n2.getYCoord());
+                l1.setStroke(Color.RED);
+                l1.setStrokeWidth(4);
                 paths[drawFloor].getChildren().add(l1);
             }
             else {
-                drawFloor = floorNamesMap.get(n2.getFloorNum());
+                Rectangle square = new Rectangle(n1.getXCoord(), n1.getYCoord(), 10, 10);
+                square.setFill(Color.LIMEGREEN);
+                int newFloor = floorNamesMap.get(n2.getFloorNum());
+                square.setOnMouseClicked(event -> displayFloorNum(newFloor));
+                paths[drawFloor].getChildren().add(square);
+                square.toFront();
+
+                Text t = new Text("Click to go to next floor");
+                t.setFill(Color.LIMEGREEN);
+                t.setX(n1.getXCoord());
+                t.setY(n1.getYCoord() + 20);
+                paths[drawFloor].getChildren().add(t);
+                t.toBack();
+
+                drawFloor = newFloor;
             }
         }
         createCircle(endNode, drawFloor, endField);
@@ -291,6 +308,7 @@ public class MapController {
             }
         }
         ObservableList<String> choices = FXCollections.observableArrayList(names);
+        FXCollections.sort(choices);
         startField.setItems(choices);
         endField.setItems(choices);
     }
@@ -310,6 +328,15 @@ public class MapController {
                     locationPanes[floor].getChildren().add(t);
                 }
             }
+        }
+    }
+
+    private void updatePathfindingAlgorithm(String algo) {
+        switch (algo) {
+            case "A-Star" -> pathfinder.setAlgorithm(Algorithm.Astar);
+            case "Breadth-First Search" -> pathfinder.setAlgorithm(Algorithm.BFS);
+            case "Depth-First Search" -> pathfinder.setAlgorithm(Algorithm.DFS);
+            default -> System.out.println("Error - invalid pathfinding algorithm.");
         }
     }
 }

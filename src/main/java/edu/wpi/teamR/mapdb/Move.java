@@ -34,4 +34,9 @@ public class Move implements MapData, CSVReadable, CSVWritable {
     public String getCSVColumns() {
         return "nodeID,longName,date";
     }
+
+    @Override
+    public MapDataType getDataType() {
+        return MapDataType.MOVE;
+    }
 }

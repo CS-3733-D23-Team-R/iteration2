@@ -46,7 +46,7 @@ public class MapStorage {
     ArrayList<LocationName> locationNames;
     ArrayList<Move> moves;
 
-    List<List<Node>> floors;
+    List<Map<Integer, Node>> floorNodeMaps;
     Map<Integer, List<Integer>> edgeMap;
     Map<Integer, Node> nodeMap;
 
@@ -58,7 +58,7 @@ public class MapStorage {
         edges = mapdb.getEdges();
         locationNames = mapdb.getLocationNames();
         moves = mapdb.getMoves();
-        floors = new ArrayList<>(5);
+        floorNodeMaps = new ArrayList<>(5);
         nodeMap = new HashMap<>();
 
         for (Node n : nodes) {
@@ -67,8 +67,8 @@ public class MapStorage {
 
         for (int i = 0; i < 5; i++) {
             nodes = mapdb.getNodesByFloor(nodeFloorNames[i]);
-            List<Node> floorNodes = new ArrayList<>();
-            floors.add(floorNodes);
+            Map<Integer, Node> nodeMap = new HashMap<>();
+            floorNodeMaps.add(nodeMap);
             for (Node n : nodes) {
                 nodeMap.put(n.getNodeID(), n);
             }
@@ -94,14 +94,13 @@ public class MapStorage {
     public Node addNode(int xCoord, int yCoord, String floorNum, String building) {
         Node n = new Node(temp_node_id, xCoord, yCoord, floorNum, building);
         temp_node_id--;
+        Arrays.binarySearch(floorNames, "e");
     }
 
     private int getFloorNum(String floor) {
-        for (int i = 0; i < nodeFloorNames.length; i++) {
-            if (nodeFloorNames[i].equals(floor))
-                return i;
+        for (String s : nodeFloorNames) {
+
         }
-        throw new RuntimeException("Floor not found");
     }
 
     public static ImageView getLowerLevel2() {

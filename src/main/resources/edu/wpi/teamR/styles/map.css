@@ -1,6 +1,7 @@
 .root {
     bwhblue: #012D5A;
     pressed: #BDBDBD;
+    error: #A31621;
 }
 
 .map-vbox {
@@ -33,6 +34,15 @@
     -fx-font-weight: 700;
     border-radius: 4px;
 }
+.delete-button {
+    -fx-background-color: error;
+    -fx-text-fill: white;
+    -fx-font-family: 'Nunito Sans', 'bold';
+    -fx-font-size: 16;
+    -fx-font-weight: 700;
+    border-radius: 4px;
+}
+
 
 .body{
     -fx-font-family: 'Nunito Sans', 'regular';
@@ -67,41 +77,39 @@
     -fx-border-width: 0px; /* Border width */
     -fx-font-size: 11px; /* Font size */
     -fx-text-fill: #000000; /* Text color */
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 20, 0.2), 0, 2, 0, 0); /* Drop shadow effect */
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 20, 0.2), 0, 2, 0, 0);
 }
 
-/* Style for ComboBox in table view when hovered */
 .combo-box:hover {
-    -fx-background-color: #eeeeee; /* Background color when hovered */
+    -fx-background-color: #eeeeee;
 }
 
-/* Style for ComboBox in table view when pressed */
 .combo-box:pressed {
-    -fx-background-color: #e0e0e0; /* Background color when pressed */
+    -fx-background-color: #e0e0e0;
 }
 
-/* Style for ComboBox arrow button */
 .combo-box .arrow-button {
-    -fx-background-color: transparent; /* Background color */
-    -fx-background-insets: 0; /* Background insets */
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
 }
 
-/* Style for ComboBox arrow button when hovered */
 .combo-box .arrow-button:hover {
-    -fx-background-color: #eeeeee; /* Background color when hovered */
+    -fx-background-color: #eeeeee;
 }
 
-/* Style for ComboBox arrow button when pressed */
 .combo-box .arrow-button:pressed {
-    -fx-background-color: #e0e0e0; /* Background color when pressed */
+    -fx-background-color: #e0e0e0;
 }
 
-/* Style for ComboBox arrow button when focused */
 .combo-box .arrow-button:focused {
-    -fx-effect:dropshadow(three-pass-box, rgba(66, 165, 245, 0.4), 0, 0, 0, 0); /* Drop shadow effect when focused */
+    -fx-effect:dropshadow(three-pass-box, rgba(66, 165, 245, 0.4), 0, 0, 0, 0);
 }
 
-/* Style for ComboBox arrow icon */
 .combo-box .arrow-button .arrow {
-    -fx-fill: #000000; /* Icon color */
+    -fx-fill: #000000;
+}
+
+.location-name-text {
+    -fx-effect: dropshadow(gaussian, rgba(66, 165, 245, 0.4), 0, 0, 0, 0);
+    -fx-text-fill: red;
 }

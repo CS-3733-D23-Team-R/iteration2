@@ -29,4 +29,10 @@ public class Edge implements MapData, CSVReadable, CSVWritable {
     public String getCSVColumns() {
         return "startNode,endNode";
     }
+
+
+    @Override
+    public MapDataType getDataType() {
+        return MapDataType.EDGE;
+    }
 }

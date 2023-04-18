@@ -1,6 +1,8 @@
-package edu.wpi.teamR.controllers;
+package edu.wpi.teamR.controllers.mapeditor;
 
+import edu.wpi.teamR.ItemNotFoundException;
 import edu.wpi.teamR.mapdb.*;
+import edu.wpi.teamR.mapdb.update.MapUpdater;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
@@ -22,7 +24,7 @@ public class MapPopupController {
 
     Node node;
     Move move;
-    MapDatabase mdb;
+    MapUpdater mapUpdater;
     LocationName locationName;
     @FXML
     Button deleteButton;
@@ -39,7 +41,7 @@ public class MapPopupController {
         locField.textProperty().addListener((observable, oldValue, newValue) -> {
             try {
                 updateLocationName();
-            } catch (SQLException e) {
+            } catch (SQLException | ItemNotFoundException e) {
                 throw new RuntimeException(e);
             }
         });
@@ -65,10 +67,10 @@ public class MapPopupController {
         primaryStage.show();
     }
 
-    public void showNodeInformation(MapDatabase mapdb, Node n, LocationName l, Move m) {
+    public void showNodeInformation(MapUpdater updater, Node n, LocationName l, Move m) {
         node = n;
         move = m;
-        mdb = mapdb;
+        mapUpdater = updater;
         locationName = l;
         nodeField.setText(Integer.toString(n.getNodeID()));
         locField.setText(l.getShortName());
@@ -82,17 +84,16 @@ public class MapPopupController {
         Date sqlDate = Date.valueOf(newValue);
         int nodeID = move.getNodeID();
         String longName = move.getLongName();
-        mdb.deleteMove(move.getNodeID(), move.getLongName(), move.getMoveDate());
-        mdb.addMove(nodeID, longName, sqlDate);
+        mapUpdater.addMove(nodeID, longName, sqlDate);
     }
 
-    private void updateLocationName() throws SQLException {
-        mdb.modifyLocationNameShortName(locationName.getLongName(), locField.getText());
+    private void updateLocationName() throws SQLException, ItemNotFoundException {
+        mapUpdater.modifyLocationNameShortName(locationName.getLongName(), locField.getText());
     }
 
     private void delete() throws SQLException {
-        mdb.deleteEdgesByNode(node.getNodeID());
-        mdb.deleteMovesByNode(move.getNodeID());
-        mdb.deleteNode(node.getNodeID());
+        mapUpdater.deleteEdgesByNode(node.getNodeID());
+        mapUpdater.deleteMovesByNode(move.getNodeID());
+        mapUpdater.deleteNode(node.getNodeID());
     }
 }

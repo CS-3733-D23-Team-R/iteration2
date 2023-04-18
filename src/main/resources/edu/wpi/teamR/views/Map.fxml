@@ -87,7 +87,7 @@
                               <Font size="24.0" />
                            </font>
                         </Text>
-                        <SearchableComboBox fx:id="algoBox" prefHeight="30.0" prefWidth="150.0" />
+                        <SearchableComboBox fx:id="algorithmChoicebox" prefHeight="30.0" prefWidth="150.0" />
                      </children>
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0">

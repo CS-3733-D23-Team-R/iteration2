@@ -35,4 +35,9 @@ public class Node implements MapData, CSVReadable, CSVWritable {
     public String getCSVColumns() {
         return "nodeID,xcoord,ycoord,floor,building";
     }
+
+    @Override
+    public MapDataType getDataType() {
+        return MapDataType.NODE;
+    }
 }

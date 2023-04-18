@@ -30,4 +30,9 @@ public class LocationName implements MapData, CSVReadable, CSVWritable {
     public String getCSVColumns() {
         return "longName,shortName,nodeType";
     }
+
+    @Override
+    public MapDataType getDataType() {
+        return MapDataType.LOCATION_NAME;
+    }
 }

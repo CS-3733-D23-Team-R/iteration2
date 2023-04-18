@@ -1,6 +1,7 @@
-package edu.wpi.teamR.controllers;
+package edu.wpi.teamR.controllers.mapeditor;
 
 import edu.wpi.teamR.mapdb.MapDatabase;
+import edu.wpi.teamR.mapdb.update.MapUpdater;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -12,7 +13,7 @@ import javafx.stage.Stage;
 import java.sql.SQLException;
 
 public class NewNodePopupController {
-    MapDatabase mapDB;
+    MapUpdater mapUpdater;
 
     @FXML
     TextField xField;
@@ -52,10 +53,10 @@ public class NewNodePopupController {
     }
 
     public void createNewNode() throws SQLException {
-        mapDB.addNode(Integer.parseInt(xField.getText()), Integer.parseInt(xField.getText()), floorCB.getValue(), buildingCB.getValue());
+        mapUpdater.addNode(Integer.parseInt(xField.getText()), Integer.parseInt(xField.getText()), floorCB.getValue(), buildingCB.getValue());
     }
 
-    public void setMapDB(MapDatabase mdb) {
-        mapDB = mdb;
+    public void setUpdater(MapUpdater updater) {
+        mapUpdater = updater;
     }
 }

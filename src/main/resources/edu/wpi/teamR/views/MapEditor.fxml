@@ -99,6 +99,12 @@
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="344.0" spacing="10.0">
                      <children>
                         <Button fx:id="redrawButton" prefHeight="30.0" prefWidth="165.0" text="Redraw" />
+                        <Button fx:id="undoButton" prefHeight="30.0" prefWidth="165.0" text="Undo" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="344.0" spacing="10.0">
+                     <children>
+                        <Button fx:id="editLocationButton" prefHeight="36.0" prefWidth="180.0" text="Edit Location Name" />
                      </children>
                   </HBox>
                </children>
@@ -145,7 +151,7 @@
                <children>
                   <HBox fx:id="edgeHBox" alignment="CENTER" prefWidth="200.0" spacing="10.0">
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="body" text="Select Two Nodes to Draw Edge">
+                        <Text fx:id="dialogText" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="body" text="Select Two Nodes to Draw Edge">
                            <font>
                               <Font size="24.0" />
                            </font>

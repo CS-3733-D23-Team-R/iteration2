@@ -16,6 +16,8 @@ public class Pathfinder {
         this.currentAlgorithm = newAlgorithm;
     }
 
+    Algorithm getCurrentAlgorithm(){return currentAlgorithm;}
+
     public Path findPath(int startID, int endID, boolean accessible) throws ItemNotFoundException, SQLException {
         SearchInterface search;
         switch (currentAlgorithm){

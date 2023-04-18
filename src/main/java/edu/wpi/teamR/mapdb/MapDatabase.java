@@ -8,6 +8,8 @@ import edu.wpi.teamR.csv.CSVReader;
 import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Objects;
 
 import static edu.wpi.teamR.mapdb.NodeDAO.parseNodes;
 
@@ -179,11 +181,12 @@ public class MapDatabase {
     }
 
     public ArrayList<MapLocation> getMapLocationsByFloor(String floor) throws SQLException {
-        PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM "+Configuration.getNodeSchemaNameTableName()+" node LEFT JOIN (SELECT * FROM "+Configuration.getMoveSchemaNameTableName()+" NATURAL JOIN (SELECT longname, MAX(date) as date from "+Configuration.getMoveSchemaNameTableName()+" WHERE date<now() group by longname) as foo) as move on node.nodeid=move.nodeid left join "+Configuration.getLocationNameSchemaNameTableName()+" locationname on move.longname=locationname.longname ORDER BY node.nodeID desc;");
+        PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM "+Configuration.getNodeSchemaNameTableName()+" node LEFT JOIN (SELECT * FROM "+Configuration.getMoveSchemaNameTableName()+" NATURAL JOIN (SELECT longname, MAX(date) as date from "+Configuration.getMoveSchemaNameTableName()+" WHERE date<now() group by longname) as foo) as move on node.nodeid=move.nodeid left join "+Configuration.getLocationNameSchemaNameTableName()+" locationname on move.longname=locationname.longname WHERE floor=? ORDER BY node.nodeID desc;");
+        preparedStatement.setString(1, floor);
         ResultSet resultSet = preparedStatement.executeQuery();
 
         ArrayList<MapLocation> mapLocations = new ArrayList<>();
-        Node lastNode = new Node(-1, 0, 0, "", ""); //need to initialize so that it doesm't error
+        Node lastNode = new Node(-100, 0, 0, "", "");
         Node currentNode;
         ArrayList<LocationName> locationNames = new ArrayList<>();
         LocationName locationName;
@@ -201,16 +204,15 @@ public class MapDatabase {
 
             boolean noLocationNameForNode = longName==null && shortName==null && nodeType==null;
             boolean continuingLastNode = lastNode.getNodeID()==nodeID;
-            if (continuingLastNode){
-                if (!noLocationNameForNode) {
+            boolean noLastNode = lastNode.getNodeID()==-100;
+            if (continuingLastNode&&!noLocationNameForNode){
+                locationNames.add(locationName);
+            } else if (!continuingLastNode){
+                if (!noLastNode)
+                    mapLocations.add(new MapLocation(lastNode, locationNames));
+                locationNames = new ArrayList<LocationName>();
+                if (!noLocationNameForNode)
                     locationNames.add(locationName);
-                }
-            } else {
-                mapLocations.add(new MapLocation(lastNode, locationNames)); //if you've reached the end of the list of locations then you're ready to add it
-                locationNames = new ArrayList<>(); //reset list for the next node
-                if (!noLocationNameForNode) {
-                    locationNames.add(locationName); //add first entry for the next node
-                }
             }
 
             lastNode = currentNode;
