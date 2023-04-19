@@ -100,7 +100,7 @@ public class MapController {
 
     @FXML
     public void initialize() throws Exception {
-        mapdb = App.getMapData().getMapdb();
+        mapdb = new MapDatabase();
         nodes = App.getMapData().getNodes();
         edges = App.getMapData().getEdges();
         locationNames = App.getMapData().getLocationNames();

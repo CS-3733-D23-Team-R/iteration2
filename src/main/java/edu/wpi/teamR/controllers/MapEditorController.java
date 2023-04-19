@@ -258,7 +258,7 @@ public class MapEditorController {
         gesturePane.setMaxScale(2);
 
         try {
-            mapdb = App.getMapData().getMapdb();
+            mapdb = new MapDatabase();
             updater = new MapUpdater(mapdb);
             nodes = App.getMapData().getNodes();
             edges = App.getMapData().getEdges();
